@@ -15,7 +15,7 @@ func main() {
   var u User
   var indToRate int
   var rateToGive float64
-  userDataFile, err := os.OpenFile("users.csv", os.O_APPEND, 0660)
+  userDataFile, err := os.OpenFile("users.csv", os.O_APPEND|os.O_RDWR|os.O_CREATE, 0644)
   if err != nil{
     fmt.Println("Error in opening user data base file") 
   }
@@ -40,6 +40,7 @@ func main() {
     if todo == 1 {
       fmt.Print("\033[H\033[2J")
       u.registration(userDataFile)
+      return
     } else if todo == 2 {
       fmt.Print("\033[H\033[2J")
       for {
