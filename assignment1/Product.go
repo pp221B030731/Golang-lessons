@@ -97,3 +97,36 @@ func showList(list []Product) {
     fmt.Println(i, record.name, record.price, record.rating)
   }
 }
+
+func (p *Product) rate (gRating float64) {
+  if gRating > 5.0  { 
+    gRating = 5
+  } else if gRating < 0 {
+    gRating = 0
+  }
+  p.rating = (p.rating*float64(p.number) + gRating)/float64(p.number+1)
+  p.number++
+}
+
+func updateListPosition (list []Product, indToRate int) {
+  var to int
+  for ind := indToRate; ind < len(list)-1; ind++ {
+    if list[ind+1].rating > list[indToRate].rating {
+      to = ind
+      break
+    }
+  }
+  if to == indToRate {
+    for ind := indToRate; ind > 0; ind-- {
+      if list[indToRate].rating > list[ind-1].rating {
+        to = ind
+        break
+      }
+    }
+  }
+  p := list[indToRate]
+  list = append(list[:indToRate], list[(indToRate+1):]...)
+  list = append(list[:to], append([]Product{p}, list[to:]...)...)
+}
+
+

@@ -13,6 +13,8 @@ func main() {
   var searchName string
   autorized := false
   var u User
+  var indToRate int
+  var rateToGive float64
   userDataFile, err := os.OpenFile("users.csv", os.O_APPEND, 0660)
   if err != nil{
     fmt.Println("Error in opening user data base file") 
@@ -29,7 +31,7 @@ func main() {
 
   productsListByPrice := sortBy(data, true)
   productsListByRating := sortBy(data, false) 
-  
+
   // Autorization menue
 
   for !autorized{  
@@ -90,9 +92,26 @@ func main() {
       default:
         
       }
-    case 1:
-      
-    case 2:
+    case 1: 
+        fmt.Print("\033[H\033[2J")
+        showList(productsListByRating)
+        fmt.Println("--------------------------------")
+        fmt.Println("Write a index of a list above:")
+        fmt.Scanln(&indToRate)
+        fmt.Println("Write a rating you want to give (0.0 - 5.0): ")
+        fmt.Scanln(&rateToGive)
+        if indToRate > 5 {
+          indToRate = 5
+        }
+        if indToRate < 0 {
+          indToRate = 0
+        }
+        productsListByRating[indToRate].rate(rateToGive)
+        updateListPosition(productsListByRating, indToRate)
+        fmt.Print("\033[H\033[2J")
+        showList(productsListByRating)
+        fmt.Print("--------------------------------")
+      case 2:
       fmt.Println("Write a name :")
       fmt.Scanln(&searchName)
       search(searchName, productsListByPrice)
