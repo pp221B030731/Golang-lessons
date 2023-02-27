@@ -4,6 +4,19 @@ package daataBase
 type User struct {
   login string
   password string
+}<C-LeftRelease>
+
+func GetUserData () []User {
+
+	file, _ := os.Open("userData.json")
+	defer file.Close()
+
+	// Decode the JSON data into a slice of Person structs
+	var users []User
+	decoder := json.NewDecoder(file)
+	_ = decoder.Decode(&people)
+
+	return people, nil
 }
 
 
