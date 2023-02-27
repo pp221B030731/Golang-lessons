@@ -1,13 +1,13 @@
 package main
 
 import (
-  t"mainmodule/web"
+  "mainmodule/web"
   "fmt"
 )
 
 
 func main() {
-  fmt.Println(t.a)
+  web.ConnectToServer()
 }
 
 
