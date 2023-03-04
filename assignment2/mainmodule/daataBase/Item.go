@@ -5,37 +5,40 @@ import (
   "encoding/json"
   "os"
   "sort"
+  "fmt"
 )
 
 type Product struct {
-  name string 'json:"name"'
-  price int64 'json:"price"'
-  rating float64 'json:"rating"'
-  number int64 'json:"number"'
+  Name string `json:"name"`
+  Price int64 `json:"price"`
+  Rating float64 `json:"rating"`
+  Number int64 `json:"number"`
 }
 
 func GetProductData() []Product {
-  file, _ := os.Open("productData.json")
+  file, _ := os.Open("daataBase/productData.json")
   defer file.Close()
 
   var data []Product
   decoder := json.NewDecoder(file)
-  _ := decoder.Decode(&data)
+  _ = decoder.Decode(&data)
 
   sort.Slice(data, func(i, j int) bool {
-		return people[i].price < people[j].name
+		return data[i].Price < data[j].Price
 	})
+
+  return data
 }
 
 
 
 func Search(name string, list []Product){
   for _, p := range list {
-    if p.name == name {
+    if p.Name == name {
       fmt.Println("----------------------")
-      fmt.Println("Name: ", p.name)
-      fmt.Println("Price: ", p.price)
-      fmt.Println("Rating: ", p.rating)
+      fmt.Println("Name: ", p.Name)
+      fmt.Println("Price: ", p.Price)
+      fmt.Println("Rating: ", p.Rating)
       fmt.Println("----------------------")
       return
     }
@@ -50,21 +53,21 @@ func (p *Product) Rate (gRating float64) {
   } else if gRating < 0 {
     gRating = 0
   }
-  p.rating = (p.rating*float64(p.number) + gRating)/float64(p.number+1)
-  p.number++
+  p.Rating = (p.Rating*float64(p.Number) + gRating)/float64(p.Number+1)
+  p.Number++
 }
 
 func UpdateListPosition (list []Product, indToRate int) {
   var to int
   for ind := indToRate; ind < len(list)-1; ind++ {
-    if list[ind+1].rating > list[indToRate].rating {
+    if list[ind+1].Rating > list[indToRate].Rating {
       to = ind
       break
     }
   }
   if to == indToRate {
     for ind := indToRate; ind > 0; ind-- {
-      if list[indToRate].rating > list[ind-1].rating {
+      if list[indToRate].Rating > list[ind-1].Rating {
         to = ind
         break
       }

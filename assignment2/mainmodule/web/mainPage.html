@@ -10,24 +10,21 @@
 </head>
 
 <body>
-  <h3>Login</h3>
-  
-  <form method="POST" action="postform">
-    <label>Login</label> <br>
-    <input type="text" name="login"> <br>
-    <label>Password</label> <br>
-    <input type="password" name="pas"> <br>
-    <input type="submit" value="Submit">
+  <h3>Sorted List</h3>
+
+  <form action = "/byRating">
+    <input type="submit" value="Sorted by Rating">
   </form>
 
-  <div>
-    <form method="POST" action="/Register">
-      <button>Register</button>
-    </form>
- 
-    <form method="POST" action="/Login">
-      <button>Login</button>
-    </form>
+  <form action = "/">
+    <input type="submit" value="Sorted by Price">
+  </form>
 
-  </div>
+
+  <ul>
+    {{range .}}
+    <li>{{.Name}} {{.Price}} {{.Rating}}</li>
+		{{end}}
+	</ul>
+
 </body>
