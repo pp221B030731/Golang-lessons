@@ -45,6 +45,6 @@ func (s *Session) Register(login string, pas string) {
     Password: pas,
   }
   s.UserDataList = append(s.UserDataList, s.ThisUser)
-  s.newUsersList = append(s.newUsersList, s.ThisUser)
+  AddToUserData(s.UserDataList)
 }
 

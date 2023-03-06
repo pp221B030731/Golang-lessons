@@ -3,7 +3,8 @@ package daataBase
 import (
   // import json reader
   "encoding/json"
-  "os"
+	"os"
+	"io/ioutil"
 )
 
 
@@ -26,5 +27,8 @@ func GetUserData () []User {
 }
 
 
-
+func AddToUserData (u []User) {
+	updatedData, _ := json.Marshal(u)
+	_ = ioutil.WriteFile("daataBase/userData.json", updatedData, 0644)
+}
 

@@ -20,11 +20,11 @@
     <input type="submit" value="Sorted by Price">
   </form>
 
-
-  <ul>
+  <p>  Name   |  Price  |   Rating </p>
+  <ol>
     {{range .}}
-    <li>{{.Name}} {{.Price}} {{.Rating}}</li>
+    <li>{{.Name}} | {{.Price}} | {{.Rating}}</li>
 		{{end}}
-	</ul>
+	</ol>
 
 </body>
